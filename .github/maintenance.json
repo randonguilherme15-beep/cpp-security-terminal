@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "baseline_date": "2026-10-06",
+  "repository": "cpp-security-terminal",
+  "original_head": "53e271dfdd79895e4254728b49908b580451a894",
+  "source_sha256": {
+    "Crediti.cpp": "4c727d2cdf4dc1c710c188b0940295ce3d5b9a20c741d9487f69d9d53840b8df",
+    "Crediti.h": "345fa1452fc0a63b95a42b4af0598b7844870e175ca14e33460d1e72e887c365",
+    "DatiCondivisi.cpp": "e0e17cab300d864af42607acee0516c418cf7f7a51488798932676e4e8f3cbb4",
+    "DatiCondivisi.h": "7bfb72237259431ba5dd370f0c2ae41ebdab7fba9a7ab3c3368bd2f6f2ce6be3",
+    "LivelloSicurezza.cpp": "9642a7f4b373b1a0e8e2aaac236b7563272d7a3b72fac11f62cf62e96f0e6346",
+    "LivelloSicurezza.h": "74b2ff396e7c87d78921c4c30a01da026524a703ac8d7d11e3944dd70eea7df7",
+    "main.cpp": "5f9efb73d733f59cb2b9c00deb798ca9ea8c95f05486d992e340444a3d0c975a",
+    "MenuPrincipale.cpp": "34e10a12698fabe0431260188276fe847e5178598879f069d76d2c69ac9e828f",
+    "MenuPrincipale.h": "5a124baa025cef5f24114a1dbbbba36ecc3fb899ee45f3b21bdacab4e700516a",
+    "Reattore.cpp": "c80f17f103fe2bea043e968bd02e237dff6ffcb72707e116d73f631745e2748d",
+    "Reattore.h": "aa1e17f1e0b834cd90321b939aa4930067b29fe8b60f7d150681489f8836028a",
+    "SistemadiAccesso.cpp": "ae18b3c25b406f30c59fb87d45bd40c6459b75cf617fe2504408e3856611110e",
+    "SistemadiAccesso.h": "98a24cb33f138fe648ad0bb31425ffe557eea792071e8a50e09f61e8ad56da95",
+    "Statistiche.cpp": "b637ef287a20c557cc0aa9d22619c26a689eb47eb24915fef75b41fa4fa53d0e",
+    "Statistiche.h": "da75c895a74c902d77e274e213772b9082a97f57146b0daee46e1682d95d902e"
+  },
+  "managed_file_sha256": {
+    ".gitignore": "2dfc091a517d338643921af20230ab908c100d844752d76102d03176563ccdc0",
+    "AGENTS.md": "86541de723596bad3420cc30415c04630800422121e7a5814cfb684a2570926b",
+    "README.md": "cceb868c4d33ff99235371199c748dade798cf1963cfac69fab16afeea339325",
+    "docs/maintenance-record.md": "f317114c2d218426ceba38a1a799ff2d6ca47c9b53189cae5e08c32b94f521ef",
+    "docs/validation.md": "1c49bd45f2d6c819104890f2c343f821516c73ce804f2179c24760a5fea8378c"
+  },
+  "policy": "Read this record before future work. Update changed content incrementally; do not regenerate over user edits. Preserve repository visibility and original source paths."
+}

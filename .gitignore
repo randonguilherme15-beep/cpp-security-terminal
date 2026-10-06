@@ -1,0 +1,24 @@
+# Compiler and linker outputs
+*.exe
+*.o
+*.obj
+*.out
+*.pdb
+*.ilk
+*.pch
+*.gch
+build/
+bin/
+obj/
+Debug/
+Release/
+.vs/
+# IDE-generated state and scratch files
+*.depend
+*.layout
+tempCodeRunnerFile*
+*.tmp
+*.log
+# Local runtime output (historical tracked examples remain available)
+camere.txt
+AustraliaPlanner_Report.txt

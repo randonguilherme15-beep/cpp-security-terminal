@@ -1,234 +1,59 @@
-# 🛡️ SecurityTerminal
+# C++ Security Terminal
 
-**A modular C++ command-line application built to practise programming fundamentals and multi-file software architecture.**
+A modular console simulation for learning C++ program structure, shared state, and menu-driven control flow.
 
-> **GORN — Build. Protect. Grow.**
+The application connects a demonstration PIN gate, a main menu, security-level selection, reactor state, credit deductions, and statistics. It is an educational simulation; the embedded PIN and in-memory state do not provide real security.
 
----
+## Architecture
 
-## 📌 About the Project
+| Responsibility | Implementation | Behaviour |
+| --- | --- | --- |
+| Entry point | [main.cpp](main.cpp) | Starts the access flow and dispatches to the main menu |
+| Demonstration access gate | [SistemadiAccesso.cpp](SistemadiAccesso.cpp) | Compares input with an embedded numeric PIN |
+| Navigation | [MenuPrincipale.cpp](MenuPrincipale.cpp) | Dispatches menu choices to the individual modules |
+| Security level | [LivelloSicurezza.cpp](LivelloSicurezza.cpp) | Accepts levels 1–3 and updates a counter |
+| Reactor state | [Reattore.cpp](Reattore.cpp) | Offers to turn off the initially active reactor |
+| Credit deductions | [Crediti.cpp](Crediti.cpp) | Deducts service costs from the shared balance |
+| Statistics | [Statistiche.cpp](Statistiche.cpp) | Displays the current counters |
+| Shared state | [DatiCondivisi.cpp](DatiCondivisi.cpp) | Defines global state declared through headers |
 
-`SecurityTerminal` is a learning project developed in C++ to consolidate the programming concepts I have studied so far.
+## Build
 
-The project started as a collection of independent exercises and was later reorganised into a **single multi-file application**, where each component has its own responsibility.
+From the repository root, with GCC available on `PATH`:
 
-The main goal is to keep improving and refactoring the same project as I learn more advanced C++ concepts.
-
----
-
-## ⚙️ Current Features
-
-### 🔐 Access System
-
-* Numeric PIN authentication
-* Maximum number of login attempts
-* Successful and failed access handling
-* Boolean access state
-
-### 🧭 Main Menu
-
-* Interactive command-line menu
-* `switch`-based navigation
-* Menu remains active until logout
-* Access to the different programme modules
-
-### 🛡️ Security Level
-
-* Security levels from `1` to `3`
-* Input validation
-* LOW / MEDIUM / HIGH status
-* Security upgrade tracking
-
-### ☢️ Reactor Control
-
-* Reactor ON/OFF state
-* User-controlled reactor operations
-* Boolean state management
-* Reactor activity tracking
-
-### 💰 Credit System
-
-* Shared credit balance
-* Different operation costs
-* Credits remain updated between module executions
-* Interactive service menu
-
-### 📊 Statistics
-
-* Executed commands
-* Failed login attempts
-* Reactor restarts
-* Security upgrades
-* Shared data between different modules
-
----
-
-## 🧱 Project Structure
-
-```text
-SecurityTerminal/
-│
-├── main.cpp
-│
-├── SistemadiAccesso.cpp
-├── SistemadiAccesso.h
-│
-├── MenuPrincipale.cpp
-├── MenuPrincipale.h
-│
-├── LivelloSicurezza.cpp
-├── LivelloSicurezza.h
-│
-├── Reattore.cpp
-├── Reattore.h
-│
-├── Crediti.cpp
-├── Crediti.h
-│
-├── Statistiche.cpp
-├── Statistiche.h
-│
-├── DatiCondivisi.cpp
-└── DatiCondivisi.h
+```powershell
+New-Item -ItemType Directory -Force build | Out-Null
+g++ -std=c++17 -Wall -Wextra -pedantic main.cpp SistemadiAccesso.cpp MenuPrincipale.cpp LivelloSicurezza.cpp Reattore.cpp Crediti.cpp Statistiche.cpp DatiCondivisi.cpp -o build/security-terminal.exe
+.\build\security-terminal.exe
 ```
 
-Each module is separated into a `.cpp` implementation file and a `.h` header file.
+On a POSIX shell, create the directory with `mkdir -p build`, use the same source list and `-o build/security-terminal`, then run `./build/security-terminal`. Only the Windows build was verified in this review.
 
-`DatiCondivisi` manages the programme state that needs to be accessed by multiple modules.
+## Example: adjust security and inspect statistics
 
----
+Enter `5736`, `2`, `3`, `4`, `5`, `5736`, one value per prompt. The embedded demonstration PIN opens the menu; option 2 selects security settings; level 3 updates the state; option 4 shows statistics. In this version, option 5 prompts for the PIN again before the application returns.
 
-## 🧠 C++ Concepts Used
+This scenario was executed successfully on 6 October 2026. See [verification and limitations](docs/validation.md) for its boundaries.
 
-This project currently includes:
+## Current limitations
 
-* Variables and data types
+- The access loop permits four incorrect attempts because it uses `<= 3` with a zero-based counter.
+- Failed logins and executed-command counters are not fully wired to the displayed statistics.
+- Credit operations can make the balance negative and do not consistently perform the corresponding reactor or security action.
+- Re-entering reactor control after shutdown can read an uninitialised local choice.
+- Logout calls the access function again instead of ending the session immediately.
+- Malformed input and end-of-input handling are incomplete; state is not persisted.
 
-  * `int`
-  * `double`
-  * `bool`
-* `cout` and `cin`
-* Arithmetic operators
-* Comparison operators
-* Logical operators
+## Development direction
 
-  * `&&`
-  * `||`
-  * `!`
-* Compound assignment
+1. Define and verify login, logout, and reactor transitions.
+2. Centralise input validation and handle end-of-input explicitly.
+3. Enforce credit invariants and update statistics at the operation boundary.
+4. Replace shared globals with an explicit application-state object.
+5. Add focused behaviour tests before introducing persistence or additional features.
 
-  * `+=`
-  * `-=`
-* Increment operators
+The historical `v0.1` tag remains available. This documentation pass preserves the C++ source and removes generated executables from the current tracked tree.
 
-  * `++`
-* `if / else if / else`
-* `switch / case / break / default`
-* `while`
-* `do-while`
-* Functions
-* Function declarations
-* Boolean return values
-* Header files
-* Multi-file compilation
-* Shared variables with `extern`
+## Related projects
 
----
-
-## 🔄 Programme Flow
-
-```text
-main.cpp
-   │
-   ▼
-Access System
-   │
-   ├── Access denied → Exit
-   │
-   └── Access granted
-            │
-            ▼
-       Main Menu
-       │   │   │   │
-       ▼   ▼   ▼   ▼
-   Security Reactor Credits Statistics
-```
-
----
-
-## 🛠️ Compilation
-
-The project currently uses `g++`.
-
-From the project directory:
-
-```bash
-g++ *.cpp -o SecurityTerminal.exe
-```
-
-Run on Windows:
-
-```bash
-.\SecurityTerminal.exe
-```
-
----
-
-## 🚧 Current Version
-
-### `v0.1 — First Working Multi-File Build`
-
-The first complete version successfully connects the different modules into a single executable C++ application.
-
-The current focus is functionality and understanding the architecture rather than optimisation.
-
----
-
-## 🗺️ Roadmap
-
-### v0.2
-
-* Prevent credits from becoming negative
-* Improve failed-login statistics
-* Improve reactor statistics
-* Track executed commands correctly
-* Improve invalid input handling
-* Clean up names and repeated code
-
-### Future versions
-
-As I learn new C++ concepts, I plan to progressively refactor and expand the project with:
-
-* Arrays
-* More advanced functions
-* `struct`
-* Object-Oriented Programming
-* Classes
-* File saving and loading
-* Persistent user data
-* Improved authentication
-* Error handling
-* More advanced security logic
-* Graphical interface
-
----
-
-## 🎯 Purpose
-
-This repository is not intended to represent a finished commercial security system.
-
-It documents my progression while learning C++ and software development, showing how a simple command-line programme can gradually evolve into a more structured application.
-
-The project will continue to change as my knowledge improves.
-
----
-
-## 👤 Author
-
-**Guilherme Randon**
-
-Software Engineering & Cybersecurity learning journey.
-
-### GORN
-
-**Build. Protect. Grow.**
+[C++ Learning Projects](https://github.com/randonguilherme15-beep/cpp-learning-projects) · [Guilherme Randon](https://github.com/randonguilherme15-beep) · [Maintenance record](docs/maintenance-record.md)
